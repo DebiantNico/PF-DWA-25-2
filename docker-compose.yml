@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: chihuahueno_db
+    environment:
+      POSTGRES_USER: chihuahueno_user
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: chihuahueno_tickets
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chihuahueno_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=postgres_db
+      - DB_PORT=5432
+      - DB_USER=chihuahueno_user
+      - DB_PASSWORD=supersecretpassword
+      - DB_NAME=chihuahueno_tickets
+    depends_on:
+      - postgres_db
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chihuahueno_frontend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
