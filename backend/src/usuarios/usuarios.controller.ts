@@ -20,7 +20,7 @@ import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import type { Response } from 'express';
-import { Public } from './decorators/public.decorator';
+import { Public } from './decorators/public.decorators';
 
 @Controller()
 export class UsuariosController {
@@ -54,7 +54,7 @@ export class UsuariosController {
     return this.usuariosService.remove(id);
   }
 
-  // BONUS*: Endpoint para recibir archivos y verificar identidad
+//*
   @Post('usuarios/:id/verify')
   @UseInterceptors(
     FileInterceptor('file', {

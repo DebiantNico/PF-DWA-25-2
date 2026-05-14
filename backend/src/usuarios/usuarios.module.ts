@@ -10,7 +10,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
-    // Usamos registerAsync para asegurar que las variables de entorno se carguen primero
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
@@ -31,6 +30,6 @@ import { AuthGuard } from './guards/auth.guard';
       useClass: AuthGuard,
     },
   ],
-  exports: [UsuariosService], // Exportamos para que Tickets pueda validar usuarios si es necesario
+  exports: [UsuariosService],
 })
 export class UsuariosModule {}

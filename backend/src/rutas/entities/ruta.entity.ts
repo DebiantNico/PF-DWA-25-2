@@ -6,29 +6,29 @@ import { Ticket } from '../../tickets/entities/ticket.entity';
 @Unique(['desde', 'hacia'])
 export class Ruta {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  id!: number;
 
   @ManyToOne(() => Ciudad, (ciudad) => ciudad.rutasDesde, {
     eager: true,
     nullable: false,
   })
   @JoinColumn({ name: 'desde' })
-  desde: Ciudad | string;
+  desde!: Ciudad | string;
 
   @ManyToOne(() => Ciudad, (ciudad) => ciudad.rutasHacia, {
     eager: true,
     nullable: false,
   })
   @JoinColumn({ name: 'hacia' })
-  hacia: Ciudad | string;
+  hacia!: Ciudad | string;
 
   @Column({
     type: 'time',
     array: true,
     default: [],
   })
-  horario: string[];
+  horario!: string[];
 
   @OneToMany(() => Ticket, (ticket) => ticket.ruta)
-  tickets: Ticket[];
+  tickets!: Ticket[];
 }

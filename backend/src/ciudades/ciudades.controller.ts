@@ -18,9 +18,7 @@ import { DisabledGuard } from '../usuarios/guards/disabled.guard';
 export class CiudadesController {
   constructor(private readonly ciudadesService: CiudadesService) {}
 
-  /**
-   * Ruta desactivada por regla de negocio
-   */
+
   @UseGuards(DisabledGuard)
   @Post()
   create(@Body() createCiudadDto: CreateCiudadDto) {
@@ -37,9 +35,7 @@ export class CiudadesController {
     return this.ciudadesService.findOne(id);
   }
 
-  /**
-   * Ruta desactivada por regla de negocio
-   */
+
   @UseGuards(DisabledGuard)
   @Patch(':id')
   update(
@@ -49,9 +45,6 @@ export class CiudadesController {
     return this.ciudadesService.update(id, updateCiudadDto);
   }
 
-  /**
-   * Ruta desactivada por regla de negocio
-   */
   @UseGuards(DisabledGuard)
   @Delete(':id')
   remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {

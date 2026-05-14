@@ -4,17 +4,17 @@ import { Ruta } from '../../rutas/entities/ruta.entity';
 @Entity('ciudades')
 export class Ciudad {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ type: 'text' })
-  nombre: string;
+  nombre!: string;
 
   @Column({ type: 'text' })
-  estado: string;
+  estado!: string;
 
   @OneToMany(() => Ruta, (ruta) => ruta.desde)
-  rutasDesde: Ruta[];
+  rutasDesde!: Ruta[];
 
   @OneToMany(() => Ruta, (ruta) => ruta.hacia)
-  rutasHacia: Ruta[];
+  rutasHacia!: Ruta[];
 }

@@ -1,6 +1,10 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Ruta } from "./entities/ruta.entity";
 import { Repository } from "typeorm";
+import { NotFoundException } from "@nestjs/common/exceptions/not-found.exception";
+import { CreateRutaDto } from "./dto/create-ruta.dto";
+import { Injectable } from "@nestjs/common/decorators/core/injectable.decorator";
+import { UpdateRutaDto } from "./dto/update-ruta.dto";
 
 @Injectable()
 export class RutasService {
@@ -48,7 +52,7 @@ export class RutasService {
         };
     }
 
-    private notFound(id: number, ruta: Ruta | null): Ruta {
+    private notFound(id: number, ruta: Ruta | null | undefined): Ruta {
         if (!ruta) {
             throw new NotFoundException(`Elemento con ID ${id} no encontrado`);
         }
@@ -56,5 +60,3 @@ export class RutasService {
     }
 }
 
-
-        })

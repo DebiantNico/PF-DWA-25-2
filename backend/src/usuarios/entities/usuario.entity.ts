@@ -4,21 +4,20 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('usuarios')
 export class Usuario {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({
     type: 'text',
     unique: true,
   })
-  email: string;
+  email!: string;
 
   @Column({ type: 'text' })
-  password: string;
+  password!: string;
 
-  // BONUS: Columna para registrar si subió documento de identidad
   @Column({ type: 'text', nullable: true })
-  identityDocument: string;
+  identityDocument!: string;
 
   @OneToMany(() => Ticket, (ticket) => ticket.usuario)
-  tickets: Ticket[];
+  tickets!: Ticket[];
 }

@@ -35,7 +35,6 @@ export class UsuariosService {
     });
     
     await this.usuarioRepository.save(nuevoUsuario);
-    // Retornamos sin exponer la contraseña encriptada
     const { password: _, ...result } = nuevoUsuario;
     return result;
   }
@@ -83,7 +82,6 @@ export class UsuariosService {
     };
   }
 
-  // BONUS*: Guarda el archivo en la base de datos
   async verifyIdentity(id: string, filename: string) {
     const usuario = await this.usuarioRepository.findOneBy({ id });
     const user = this.notFound(usuario);
@@ -108,8 +106,7 @@ export class UsuariosService {
   private tokenCookies(token: string, response: Response): string {
     const tokenName = process.env.TOKEN_NAME || 'auth_autobus_token';
     response.cookie(tokenName, token, {
-      httpOnly: false, // Permitir acceso frontal temporal
-      secure: true,
+      httpOnly: false, 
       sameSite: 'none',
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
