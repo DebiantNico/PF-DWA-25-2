@@ -8,28 +8,28 @@ import { Usuario } from './entities/usuario.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guards/auth.guard';
 
-@Module({
-  imports: [
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('JWT_KEY') || 'supersecretjwtkey',
-        signOptions: {
-          expiresIn: config.get<string>('EXPIRES_IN') || '7d',
+@Module( {
+    imports: [
+        JwtModule.registerAsync({
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+            secret: config.get<string>('JWT_KEY') || 'supersecretjwtkey',
+            signOptions: {
+            expiresIn: (config.get<string>('EXPIRES_IN') || '7d') as any,
+            },
+        }),
+        global: true,
+        }),
+        TypeOrmModule.forFeature([Usuario]),
+    ],
+    controllers: [UsuariosController],
+    providers: [
+        UsuariosService,
+        {
+        provide: APP_GUARD,
+        useClass: AuthGuard,
         },
-      }),
-      global: true,
-    }),
-    TypeOrmModule.forFeature([Usuario]),
-  ],
-  controllers: [UsuariosController],
-  providers: [
-    UsuariosService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
-  exports: [UsuariosService],
-})
+    ],
+    exports: [UsuariosService],
+    })
 export class UsuariosModule {}

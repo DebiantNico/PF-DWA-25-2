@@ -35,7 +35,6 @@ export class CiudadesController {
     return this.ciudadesService.findOne(id);
   }
 
-
   @UseGuards(DisabledGuard)
   @Patch(':id')
   update(

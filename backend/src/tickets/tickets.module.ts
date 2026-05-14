@@ -7,14 +7,14 @@ import { AuthGuard } from '../usuarios/guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Ticket])],
-  controllers: [TicketsController],
-  providers: [
-    TicketsService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
+    imports: [TypeOrmModule.forFeature([Ticket])],
+    controllers: [TicketsController],
+    providers: [
+        TicketsService,
+        {
+        provide: APP_GUARD,
+        useClass: AuthGuard,
+        },
+    ],
 })
 export class TicketsModule {}

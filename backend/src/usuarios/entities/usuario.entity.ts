@@ -3,21 +3,20 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('usuarios')
 export class Usuario {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+    @PrimaryGeneratedColumn('uuid')
+    id!: string;
 
-  @Column({
+    @Column({
     type: 'text',
     unique: true,
-  })
-  email!: string;
+    })
+    email!: string;
+    @Column({ type: 'text' })
+    password!: string;
 
-  @Column({ type: 'text' })
-  password!: string;
+    @Column({ type: 'text', nullable: true })
+    identityDocument!: string;
 
-  @Column({ type: 'text', nullable: true })
-  identityDocument!: string;
-
-  @OneToMany(() => Ticket, (ticket) => ticket.usuario)
-  tickets!: Ticket[];
+    @OneToMany(() => Ticket, (ticket) => ticket.usuario)
+    tickets!: Ticket[];
 }

@@ -13,7 +13,7 @@ import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import type { Response } from 'express';
 
-@Injectable()
+@Injectable( )
 export class UsuariosService {
   constructor(
     @InjectRepository(Usuario)
