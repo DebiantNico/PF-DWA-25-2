@@ -6,7 +6,6 @@ services:
       POSTGRES_USER: admin_taller
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: bd_tickets_final
-      # ESTA ES LA LÍNEA MÁGICA:
       POSTGRES_HOST_AUTH_METHOD: trust 
     ports:
       - "5435:5432"
