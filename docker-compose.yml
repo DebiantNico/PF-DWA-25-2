@@ -1,17 +1,17 @@
-version: '3.8'
-
 services:
   postgres_db:
     image: postgres:15-alpine
-    container_name: chihuahueno_db
+    container_name: db_final_uaq
     environment:
-      POSTGRES_USER: chihuahueno_user
-      POSTGRES_PASSWORD: supersecretpassword
-      POSTGRES_DB: chihuahueno_tickets
+      POSTGRES_USER: admin_taller
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: bd_tickets_final
+      # ESTA ES LA LÍNEA MÁGICA:
+      POSTGRES_HOST_AUTH_METHOD: trust 
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - vol_final_uaq:/var/lib/postgresql/data
     networks:
       - app-network
 
@@ -25,10 +25,10 @@ services:
       - "3000:3000"
     environment:
       - DB_HOST=postgres_db
-      - DB_PORT=5432
-      - DB_USER=chihuahueno_user
-      - DB_PASSWORD=supersecretpassword
-      - DB_NAME=chihuahueno_tickets
+      - DB_PORT=5435
+      - DB_USER=admin_taller
+      - DB_PASSWORD=password123
+      - DB_NAME=bd_tickets_final
     depends_on:
       - postgres_db
     networks:
@@ -50,7 +50,7 @@ services:
       - app-network
 
 volumes:
-  pgdata:
+  vol_final_uaq:
 
 networks:
   app-network:
